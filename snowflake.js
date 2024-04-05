@@ -82,7 +82,7 @@ class Asnowflake {
         let endX = x + length * Math.cos(angleInRadians);
         let endY = y + length * Math.sin(angleInRadians);
         ctx.strokeStyle = this.color;
-        ctx.lineWidth = length * 0.01 * this.LW;
+        ctx.lineWidth = length * 0.005 * this.LW;
         ctx.lineCap = 'round';
         ctx.beginPath();
         ctx.moveTo(x, y);
@@ -128,10 +128,15 @@ for (let i = 0; i < quantity; i++) {
 let StepCount = 0
 function step() {
     StepCount += 1
-    Wh = document.body.clientWidth;
-    Ht = window.innerHeight;
-    canvas.width = Wh;
-    canvas.height = Ht;
+    if (Wh != document.body.clientWidth || Ht != window.innerHeight) {
+        Wh = document.body.clientWidth;
+        Ht = window.innerHeight;
+        canvas.width = Wh;
+        canvas.height = Ht;
+    }
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     for (const snowflake of Snowflakes) {
         snowflake.NextLevel();
         snowflake.draw(ctx);

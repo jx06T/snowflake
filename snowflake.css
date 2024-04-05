@@ -31,6 +31,7 @@ body {
     border-radius: 15px;
     padding-left: 10px;
     padding-top: 10px;
+    transition: width .1s, height .3s;
 }
 
 #opt {
@@ -39,12 +40,13 @@ body {
     background-color: rgba(180, 180, 180, 0.3);
     border-radius: 13px;
     z-index: 9999;
-
+    
     position: absolute;
     top: -10px;
     left: -10px;
-
+    
     animation: my-animation 2s infinite;
+    transition: width .1s , height .3s;
 }
 
 #opt:not(.sting):hover {
@@ -121,11 +123,11 @@ body {
     border-radius: 3px;
     font-size: 18px;
     width: 220px;
-    height: 25px;
+    height: 30px;
+    line-height: 30px;
     margin-top: 4px;
     margin-left: 26px;
     cursor: pointer;
-
 }
 
 .RB:hover {

@@ -6,7 +6,7 @@ function init() {
         const target = e
         const id = target.id
         target.value = SnowflakeData[id]
-        console.log(id)
+        // console.log(id)
     })
 }
 opt_D.addEventListener("click", () => {
@@ -78,4 +78,71 @@ ResetAll_A.addEventListener("click", () => {
 window.onbeforeunload = () => {
     UpData(SnowflakeData)
 };
-init() 
+init()
+
+const recordBtn = document.getElementById('recordBtn');
+let mediaRecorder;
+let recordedBlobs = [];
+
+recordBtn.addEventListener('click', () => {
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+        recordBtn.textContent = 'Start Recording';
+    } else {
+        canvas.width = Wh;
+        canvas.height = Ht;
+        startRecording();
+        recordBtn.textContent = 'Stop Recording';
+    }
+});
+
+function startRecording() {
+    recordedBlobs = [];
+    // Adjust video quality settings
+    const options = {
+        mimeType: 'video/webm;codecs=vp8', // Consider VP8 for better quality within WebM
+        // Adjust videoBitsPerSecond to a higher value for better quality,
+        // but be mindful of file size implications. Experiment for your needs.
+        videoBitsPerSecond: 85000000, // Start with 2Mbps, adjust as needed
+        bitsPerSecond: 85000000,
+    };
+
+    if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+        console.error(`${options.mimeType} is not supported`);
+        return;
+    }
+
+    const stream = canvas.captureStream(30);
+    mediaRecorder = new MediaRecorder(stream, options);
+
+    mediaRecorder.ondataavailable = handleDataAvailable;
+    mediaRecorder.start();
+    setupRecorderStop();
+}
+
+function handleDataAvailable(event) {
+    if (event.data && event.data.size > 0) {
+        recordedBlobs.push(event.data);
+    }
+}
+
+function stopRecording() {
+    mediaRecorder.stop();
+}
+
+function setupRecorderStop() {
+    mediaRecorder.onstop = () => {
+        const blobbedVideo = new Blob(recordedBlobs, { type: 'video/webm' });
+        const url = window.URL.createObjectURL(blobbedVideo);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'snowflake.webm';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 100);
+    };
+}
