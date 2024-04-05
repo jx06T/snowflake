@@ -10,64 +10,54 @@
 
 <body>
     <div id="opt" class="">
-        <label for="optt">⚙️</label>
+        <label for="optt" id="stB">⚙️</label>
         <div id="optt" class="opts">
             <div class="LR">
-                <a for="">Calm</a>
-                <input id="Calm" value="10" placeholder="10" type="number">
-                <a for="" class="R">↺</a>
+                <a for="" class="a1">Quantity</a>
+                <input id="Quantity" value="20" placeholder="20" class="ww" type="range" min="1" max="100">
+                <a for="" class="RB">↺</a>
             </div>
             <div class="LR">
-                <a for="">Vision</a>
-                <input id="Vision" value="75" placeholder="75" type="number">
-                <a for="" class="R">↺</a>
+                <a for="" class="a1">Speed</a>
+                <input id="Speed" value="5" placeholder="5" class="ww" type="range" min="1" max="100">
+                <a for="" class="RB">↺</a>
             </div>
             <div class="LR">
-                <a for="">Speed</a>
-                <input id="Speed" value="40" placeholder="40" type="number">
-                <a for="" class="R">↺</a>
+                <a for="" class="a1">Size</a>
+                <div>
+                    <input id="SizeT" value="65" placeholder="65" class="ww" type="range" min="10" max="130">
+                    <input id="SizeD" value="35" placeholder="35" class="ww www" type="range" min="10" max="130">
+                </div>
+                <a for="" class="RB">↺</a>
             </div>
             <div class="LR">
-                <a for="">Toward</a>
-                <input id="Toward" value="25" placeholder="25" type="number">
-                <a for="" class="R">↺</a>
+                <a for="" class="a1">Complex</a>
+                <div>
+                    <input id="ComplexT" value="17" placeholder="17" class="ww" type="range" min="1" max="30">
+                    <input id="ComplexD" value="7" placeholder="7" class="ww www" type="range" min="1" max="30">
+                </div>
+                <a for="" class="RB">↺</a>
             </div>
             <div class="LR">
-                <a for="">Spacing</a>
-                <input id="Spacing" value="50" placeholder="50" type="number">
-                <a for="" class="R">↺</a>
+                <a for="" class="a1">vertex</a>
+                <div>
+                    <input id="vertexT" value="9" placeholder="9" class="ww" type="range" min="2" max="50">
+                    <input id="vertexD" value="3" placeholder="3" class="ww www" type="range" min="2" max="50">
+                </div>
+                <a for="" class="RB">↺</a>
             </div>
             <div class="LR">
-                <a for="">Mouse</a>
-                <input id="Mouse" value="20" placeholder="20" type="number">
-                <a for="" class="R">↺</a>
+                <a for="" class="a1">Thickness</a>
+                <div>
+                    <input id="ThicknessT" value="9" placeholder="9" class="ww" type="range" min="1" max="40">
+                    <input id="ThicknessD" value="3" placeholder="3" class="ww www" type="range" min="1" max="40">
+                </div>
+                <a for="" class="RB">↺</a>
+            </div>
 
-            </div>
-            <div class="LR">
-                <a for="">ToUnite</a>
-                <input id="ToUnite" value="10" placeholder="10" type="number">
-                <a for="" class="R">↺</a>
-            </div>
-            <div class="LR">
-                <a for="">size</a>
-                <input id="Size" value="75" placeholder="75" type="number">
-                <a for="" class="R">↺</a>
-            </div>
         </div>
         <div id="opttt" class="LR opts">
-            <a for="" id="ResetAll" class="R RR">ResetData ↺</a>
-            <a for="" id="UpDataAll" class="R RR">SetData ↥</a>
-        </div>
-        <div id="optttt" class="LR opts">
-            <a for="">count</a>
-            <input id="count" value="400" placeholder="400" type="number">
-            <a for="" id="Rcount" class="R">↺</a>
-        </div>
-        <div id="opttttt" class="LR opts">
-            <a for="" id="ResetAllB" class="R RR">Resetboids ↺</a>
-        </div>
-        <div id="opttttt" class="LR opts">
-            <a for="" id="ResetAllAll" class="R RR">ResetAll ↺</a>
+            <a for="" id="ResetAll" class="RB RBB">ResetData ↺</a>
         </div>
     </div>
     <canvas id="canvas"></canvas>

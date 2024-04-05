@@ -6,13 +6,15 @@ function UpData(data) {
 
 const initdata = {
     Quantity: 20,
-    Speed: 4.5,
+    Speed: 5,
     SizeT: 65,
     SizeD: 35,
     ComplexT: 17,
     ComplexD: 7,
     vertexT: 9,
     vertexD: 3,
+    ThicknessT: 9,
+    ThicknessD: 3,
 };
 
 const cookie = document.cookie;
@@ -33,13 +35,11 @@ if (!jxdata) {
     jsonData = JSON.parse(jxdata);
 }
 let SnowflakeData = jsonData
-let initdata2 = { ...SnowflakeData }
-
 let mouseX = 0
 let mouseY = 0
 
 class Asnowflake {
-    constructor(x, y, size, complex, vertex, color, direction) {
+    constructor(x, y, size, complex, vertex, color, direction, LW) {
         this.x = x;
         this.y = y;
         this.distance = size;
@@ -48,6 +48,7 @@ class Asnowflake {
         this.vertex = vertex;
         this.color = color;
         this.direction = direction
+        this.LW = LW
 
         this.canvas = document.createElement('canvas');
         this.width = this.canvas.width = this.Csize;
@@ -81,6 +82,8 @@ class Asnowflake {
         let endX = x + length * Math.cos(angleInRadians);
         let endY = y + length * Math.sin(angleInRadians);
         ctx.strokeStyle = this.color;
+        ctx.lineWidth = length * 0.01 * this.LW;
+        ctx.lineCap = 'round';
         ctx.beginPath();
         ctx.moveTo(x, y);
         ctx.lineTo(endX, endY);
@@ -102,20 +105,8 @@ function GetAF() {
     const complex = Math.random() * (SnowflakeData.ComplexT - SnowflakeData.ComplexD) + SnowflakeData.ComplexD;
     const vertex = Math.floor(Math.random() * (SnowflakeData.vertexT - SnowflakeData.vertexD) + SnowflakeData.vertexD);
     const direction = Math.random() * 360;
-    return new Asnowflake(x, y, size, complex, vertex, randomRGBA(), direction)
-}
-function decimalToFraction(decimal, simplify = true) {
-    let numerator = decimal * 1000;
-    let denominator = 1000;
-    function gcd(a, b) {
-        return b ? gcd(b, a % b) : a;
-    }
-    if (simplify) {
-        const commonFactor = gcd(numerator, denominator);
-        numerator /= commonFactor;
-        denominator /= commonFactor;
-    }
-    return { numerator, denominator };
+    const LW = Math.random() * (SnowflakeData.ThicknessT - SnowflakeData.ThicknessD) + SnowflakeData.ThicknessD;
+    return new Asnowflake(x, y, size, complex, vertex, randomRGBA(), direction, LW)
 }
 
 console.log(SnowflakeData)
@@ -136,8 +127,8 @@ for (let i = 0; i < quantity; i++) {
 // 每秒執行 60 次的更新函式
 let StepCount = 0
 function step() {
-    StepCount += 1 / decimalToFraction(SnowflakeData.Speed).denominator
-    Wh = document.body.clientWidth;;
+    StepCount += 1
+    Wh = document.body.clientWidth;
     Ht = window.innerHeight;
     canvas.width = Wh;
     canvas.height = Ht;
@@ -146,7 +137,7 @@ function step() {
         snowflake.draw(ctx);
     }
     window.requestAnimationFrame(step);
-    if (StepCount * decimalToFraction(SnowflakeData.Speed).denominator % decimalToFraction(SnowflakeData.Speed).numerator == 0) {
+    if (StepCount % SnowflakeData.Speed == 0) {
         Snowflakes.push(GetAF())
         Snowflakes.shift()
     }
@@ -158,6 +149,21 @@ canvas.addEventListener('mousemove', (event) => {
     mouseY = event.clientY
 });
 
-// canvas.addEventListener("click", () => {
-//     opt_D.classList.remove("sting")
-// })
+canvas.addEventListener("click", () => {
+    opt_D.classList.remove("sting")
+})
+
+
+
+function Rcount() {
+    let l = Snowflakes.length
+    if (SnowflakeData.Quantity > l) {
+        for (let i = 0; i < SnowflakeData.Quantity - l; i++) {
+            Snowflakes.push(GetAF());
+        }
+    } else {
+        Snowflakes.splice(0, l - SnowflakeData.Quantity);
+    }
+    // console.log(SnowflakeData.Speed)
+    StepCount = 0
+}

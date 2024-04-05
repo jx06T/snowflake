@@ -1,69 +1,14 @@
 const opt_D = document.getElementById("opt")
 const optt_D = document.getElementById("optt")
-const RestAll_B = document.getElementById("ResetAll")
-const UpDataAll_B = document.getElementById("UpDataAll")
-const Count_I = document.getElementById("count")
-const Count_B = document.getElementById("Rcount")
-const UpDataAllB_B = document.getElementById("ResetAllB")
-const UpDataAllAll_B = document.getElementById("ResetAllAll")
-
-
-function init(data) {
-    optt_D.childNodes.forEach((e) => {
-        if (e.tagName != 'DIV') {
-            return
-        }
-        let t = e.firstChild.nextSibling.nextSibling.nextSibling
-        // console.log(t)
-        t.value = data[t.id]
+const ResetAll_A = document.getElementById("ResetAll")
+function init() {
+    optt_D.querySelectorAll('.ww').forEach((e) => {
+        const target = e
+        const id = target.id
+        target.value = SnowflakeData[id]
+        console.log(id)
     })
 }
-init(initdata2)
-
-UpDataAllAll_B.addEventListener("click", () => {
-    init(initdata)
-    UpData(initdata)
-    BoidData = initdata
-    location.reload();
-})
-
-UpDataAllB_B.addEventListener("click", () => {
-    Rcount2()
-})
-
-Count_I.value = quantity
-Count_I.addEventListener("input", () => {
-    quantity = Count_I.value
-    Rcount()
-    F()
-})
-
-Count_B.addEventListener("click", () => {
-    let Wh = document.body.clientWidth;
-    let Ht = window.innerHeight;
-    quantity = Wh * Ht / 1700
-    quantity = Math.floor(quantity)
-    Count_I.value = quantity
-    Rcount()
-    F()
-})
-
-RestAll_B.addEventListener("click", () => {
-    init(initdata)
-    UpData(initdata)
-    BoidData = initdata
-    initdata2 = BoidData
-    // console.log(6645465)
-    F()
-})
-
-UpDataAll_B.addEventListener("click", () => {
-    UpData(BoidData)
-    // console.log(664544465)
-    initdata2 = BoidData
-    F()
-})
-
 opt_D.addEventListener("click", () => {
     opt_D.classList.add("sting")
 })
@@ -71,33 +16,66 @@ opt_D.addEventListener("click", () => {
 optt_D.addEventListener("input", (e) => {
     const target = e.target
     const id = target.id
-    // console.log(id)
-    BoidData[id] = parseFloat(target.value)
+    let temp = (id.replace(/(\D*)((T|D))/, "$1^$2")).split("^")
+    let type = temp[0]
+    let TD = temp[1]
+    if (TD == "T") {
+        var targetD = optt_D.querySelector(`[id="${type}D"]`)
+        var targetT = target
+    } else if (TD == "D") {
+        var targetT = optt_D.querySelector(`[id="${type}T"]`)
+        var targetD = target
+    }
+    if (TD == "T") {
+        if (parseFloat(targetD.value) > parseFloat(target.value)) {
+            targetD.value = parseFloat(target.value) - 1
+        }
+    } else if (TD == "D") {
+        if (parseFloat(targetT.value) < parseFloat(target.value)) {
+            targetT.value = parseFloat(target.value) + 1
+        }
+    }
+    if (TD) {
+        SnowflakeData[type + "T"] = parseFloat(targetT.value)
+        SnowflakeData[type + "D"] = parseFloat(targetD.value)
+    } else {
+        SnowflakeData[type] = parseFloat(target.value)
+    }
+    Rcount()
+    // console.log(SnowflakeData)
 })
 
 optt_D.addEventListener("click", (e) => {
     const target = e.target
-    if (!target.classList.contains("R")) {
+    if (!target.classList.contains("RB")) {
         return
     }
-
-    const target2 = target.previousElementSibling
+    let target2 = target.previousElementSibling
+    if (!target2.classList.contains("ww")) {
+        target2 = target2.firstChild.nextSibling
+    }
     const id = target2.id
-    // console.log(id, initdata2)
-    BoidData[id] = initdata2[id]
-    target2.value = initdata2[id]
-    F()
+    console.log(id)
+    let temp = (id.replace(/(\D*)((T|D))/, "$1^$2")).split("^")
+    let type = temp[0]
+    let TD = temp[1]
+    if (TD) {
+        SnowflakeData[type + "T"] = initdata[type + "T"]
+        SnowflakeData[type + "D"] = initdata[type + "D"]
+    } else {
+        SnowflakeData[type] = initdata[type]
+    }
+    console.log(TD, type, SnowflakeData, initdata)
+    Rcount()
+    init()
 })
 
-
+ResetAll_A.addEventListener("click", () => {
+    SnowflakeData = { ...initdata }
+    UpData(SnowflakeData)
+    init()
+})
 window.onbeforeunload = () => {
-    UpData(BoidData)
+    UpData(SnowflakeData)
 };
-
-function F() {
-    opt_D.classList.add("flashh")
-    setTimeout(() => {
-        opt_D.classList.remove("flashh")
-    },
-        400);
-}
+init() 
