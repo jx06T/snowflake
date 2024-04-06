@@ -83,11 +83,11 @@ body {
 
 @keyframes flash {
     0% {
-        background-color: rgba(180, 180, 180, 0.3);
+        background-color: rgba(180, 180, 180, 0.4);
     }
 
-    50% {
-        background-color: rgba(200, 200, 200, 0.2);
+    70% {
+        background-color: rgba(200, 200, 200, 0.15);
     }
 
     100% {

@@ -7,12 +7,13 @@ function UpData(data) {
 const initdata = {
     Quantity: 20,
     Speed: 5,
+    Disappear: 50,
     SizeT: 65,
     SizeD: 35,
     ComplexT: 17,
     ComplexD: 7,
-    vertexT: 9,
-    vertexD: 3,
+    VertexT: 9,
+    VertexD: 3,
     ThicknessT: 9,
     ThicknessD: 3,
 };
@@ -103,7 +104,7 @@ function GetAF() {
     const y = Math.random() * canvas.height;
     const size = Math.random() * (SnowflakeData.SizeT - SnowflakeData.SizeD) + SnowflakeData.SizeD;
     const complex = Math.random() * (SnowflakeData.ComplexT - SnowflakeData.ComplexD) + SnowflakeData.ComplexD;
-    const vertex = Math.floor(Math.random() * (SnowflakeData.vertexT - SnowflakeData.vertexD) + SnowflakeData.vertexD);
+    const vertex = Math.floor(Math.random() * (SnowflakeData.VertexT - SnowflakeData.VertexD) + SnowflakeData.VertexD);
     const direction = Math.random() * 360;
     const LW = Math.random() * (SnowflakeData.ThicknessT - SnowflakeData.ThicknessD) + SnowflakeData.ThicknessD;
     return new Asnowflake(x, y, size, complex, vertex, randomRGBA(), direction, LW)
@@ -135,7 +136,7 @@ function step() {
         canvas.height = Ht;
     }
     // ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = `rgba(0,0,0,${SnowflakeData.Disappear / 100})`;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     for (const snowflake of Snowflakes) {
         snowflake.NextLevel();

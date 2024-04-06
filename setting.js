@@ -16,7 +16,7 @@ opt_D.addEventListener("click", () => {
 optt_D.addEventListener("input", (e) => {
     const target = e.target
     const id = target.id
-    let temp = (id.replace(/(\D*)((T|D))/, "$1^$2")).split("^")
+    let temp = (id.replace(/(\D+)((T|D))/, "$1^$2")).split("^")
     let type = temp[0]
     let TD = temp[1]
     if (TD == "T") {
@@ -46,6 +46,7 @@ optt_D.addEventListener("input", (e) => {
 })
 
 optt_D.addEventListener("click", (e) => {
+    F()
     const target = e.target
     if (!target.classList.contains("RB")) {
         return
@@ -71,6 +72,7 @@ optt_D.addEventListener("click", (e) => {
 })
 
 ResetAll_A.addEventListener("click", () => {
+    F()
     SnowflakeData = { ...initdata }
     UpData(SnowflakeData)
     init()
@@ -79,7 +81,7 @@ window.onbeforeunload = () => {
     UpData(SnowflakeData)
 };
 init()
-
+//--------------------------------------------------------------
 const recordBtn = document.getElementById('recordBtn');
 let mediaRecorder;
 let recordedBlobs = [];
@@ -145,4 +147,13 @@ function setupRecorderStop() {
             window.URL.revokeObjectURL(url);
         }, 100);
     };
+}
+
+
+function F() {
+    opt_D.classList.add("flashh")
+    setTimeout(() => {
+        opt_D.classList.remove("flashh")
+    },
+        400);
 }
