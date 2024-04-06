@@ -7,7 +7,7 @@ function UpData(data) {
 const initdata = {
     Quantity: 20,
     Speed: 5,
-    Disappear: 50,
+    disappear: 50,
     SizeT: 65,
     SizeD: 35,
     ComplexT: 17,
@@ -136,7 +136,7 @@ function step() {
         canvas.height = Ht;
     }
     // ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = `rgba(0,0,0,${SnowflakeData.Disappear / 100})`;
+    ctx.fillStyle = `rgba(0,0,0,${SnowflakeData.disappear / 100})`;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     for (const snowflake of Snowflakes) {
         snowflake.NextLevel();

@@ -56,7 +56,7 @@ optt_D.addEventListener("click", (e) => {
         target2 = target2.firstChild.nextSibling
     }
     const id = target2.id
-    console.log(id)
+    // console.log(id)
     let temp = (id.replace(/(\D*)((T|D))/, "$1^$2")).split("^")
     let type = temp[0]
     let TD = temp[1]
@@ -66,7 +66,7 @@ optt_D.addEventListener("click", (e) => {
     } else {
         SnowflakeData[type] = initdata[type]
     }
-    console.log(TD, type, SnowflakeData, initdata)
+    // console.log(TD, type, SnowflakeData, initdata)
     Rcount()
     init()
 })
@@ -76,6 +76,8 @@ ResetAll_A.addEventListener("click", () => {
     SnowflakeData = { ...initdata }
     UpData(SnowflakeData)
     init()
+    Rcount()
+
 })
 window.onbeforeunload = () => {
     UpData(SnowflakeData)
