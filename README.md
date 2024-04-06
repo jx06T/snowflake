@@ -1,7 +1,7 @@
 # snowflake
 ###### *version-V1.0* 
 ---
-## [see](https://jx06t.github.io/boid/boid.html)
+## [see](https://jx06t.github.io/snowflake/snowflake.html)
 
 ### hint
 - 通過縮小網頁來取得更好的錄製品質
