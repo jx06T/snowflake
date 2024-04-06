@@ -1,7 +1,7 @@
 function UpData(data) {
     jsonData = JSON.stringify(data);
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 14);
-    document.cookie = `jxdata=${jsonData}; expires=${expires.toUTCString()}`;
+    document.cookie = `jxSnowflakeData=${jsonData}; expires=${expires.toUTCString()}`;
 }
 
 const initdata = {
@@ -23,7 +23,7 @@ const cookies = cookie.split(';');
 let jxdata;
 for (const cookie of cookies) {
     const [key, value] = cookie.split('=');
-    if (key === 'jxdata') {
+    if (key === 'jxSnowflakeData') {
         jxdata = value;
         break;
     }
