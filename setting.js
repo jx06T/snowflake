@@ -41,7 +41,7 @@ optt_D.addEventListener("input", (e) => {
     } else {
         SnowflakeData[type] = parseFloat(target.value)
     }
-    Rcount()
+    // Rcount()
     // console.log(SnowflakeData)
 })
 
@@ -67,7 +67,7 @@ optt_D.addEventListener("click", (e) => {
         SnowflakeData[type] = initdata[type]
     }
     // console.log(TD, type, SnowflakeData, initdata)
-    Rcount()
+    // Rcount()
     init()
 })
 
@@ -76,7 +76,7 @@ ResetAll_A.addEventListener("click", () => {
     SnowflakeData = { ...initdata }
     UpData(SnowflakeData)
     init()
-    Rcount()
+    // Rcount()
 
 })
 window.onbeforeunload = () => {

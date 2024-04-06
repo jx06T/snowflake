@@ -121,9 +121,9 @@ canvas.height = Ht;
 let quantity = SnowflakeData.Quantity
 
 const Snowflakes = [];
-for (let i = 0; i < quantity; i++) {
-    Snowflakes.push(GetAF());
-}
+// for (let i = 0; i < quantity; i++) {
+//     Snowflakes.push(GetAF());
+// }
 
 // 每秒執行 60 次的更新函式
 let StepCount = 0
@@ -147,6 +147,12 @@ function step() {
         Snowflakes.push(GetAF())
         Snowflakes.shift()
     }
+    let l = Snowflakes.length
+    if (SnowflakeData.Quantity > l) {
+        Snowflakes.push(GetAF());
+    } else {
+        Snowflakes.splice(0, l - SnowflakeData.Quantity);
+    }
 }
 window.requestAnimationFrame(step)
 
@@ -161,15 +167,15 @@ canvas.addEventListener("click", () => {
 
 
 
-function Rcount() {
-    let l = Snowflakes.length
-    if (SnowflakeData.Quantity > l) {
-        for (let i = 0; i < SnowflakeData.Quantity - l; i++) {
-            Snowflakes.push(GetAF());
-        }
-    } else {
-        Snowflakes.splice(0, l - SnowflakeData.Quantity);
-    }
-    // console.log(SnowflakeData.Speed)
-    StepCount = 0
-}
+// function Rcount() {
+//     let l = Snowflakes.length
+//     if (SnowflakeData.Quantity > l) {
+//         for (let i = 0; i < SnowflakeData.Quantity - l; i++) {
+//             Snowflakes.push(GetAF());
+//         }
+//     } else {
+//         Snowflakes.splice(0, l - SnowflakeData.Quantity);
+//     }
+//     // console.log(SnowflakeData.Speed)
+//     StepCount = 0
+// }
